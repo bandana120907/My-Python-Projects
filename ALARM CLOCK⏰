@@ -1,0 +1,10 @@
+from datetime import datetime
+import winsound
+
+h=int(input('enter hour'))
+m=int(input('enter minute'))
+
+while True:
+    if h==datetime.now().hour and m==datetime.now().minute:
+        winsound.Beep(700,1000)
+        break
