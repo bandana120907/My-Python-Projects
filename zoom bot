@@ -1,0 +1,64 @@
+import pyttsx3 as p
+import webbrowser
+import pyautogui as py
+import time
+import random
+from datetime import datetime
+
+#DICTIONARY OF MEETING NAMES AND LINKS
+ln={meeting name:link}
+
+h=['greetings','hi','howdy','welcome','good day','good morning','hey','hi-ya','how are you?','how goes it','howdy-do?','shalom',"what's happening?","what's up?",'hello']
+bye=['bye-bye','adios','cheerio','toodles','ciao','toodles','leave-taking','parting','so long','toodle-oo','bye']
+txt=''
+def speak(command):
+    e = p.init()
+    voices=e.getProperty('voices')
+    e.setProperty('voice',voices[7].id)
+    e.say(command)
+    e.runAndWait()
+def listen():
+    speak('whose meeting do you want to join?')
+    id = str(input('whose meeting do you want to join?'))
+    if id not in ln:
+        speak('invalid id!')
+        id = str(input('whose meeting do you want to join?'))
+
+    print('meeting id: '+id)
+    speak('okie dokie.')
+    return id
+
+def join_meeting(id):
+    speak('joining '+id+"'s"+' meeting')
+    print('joining '+id+"'s"+' meeting')
+    try:
+        webbrowser.open_new(ln.get(id))
+        time.sleep(3)
+        try:
+            py.press('enter')
+            speak('done! ' + random.choice(bye))
+        except:
+            speak('done! ' + random.choice(bye))
+    except:
+        speak('person not found')
+while True:
+
+    salutation=random.choice(h)
+    speak(salutation + "do you want to schedule a meeting for today or join one right now?")
+    txt=str(input('do you want to schedule a meeting for today or join one right now?'))
+
+    txt = txt.lower()
+    if 'now' in txt:
+        join_meeting(listen())
+        break
+    elif 'schedule' in txt:
+        speak('enter the hour and exact minute for the meeting')
+        h=int(input('enter hour'))
+        m = int(input('enter minute'))
+        i = listen()
+        while True:
+            if h == datetime.now().hour and m == datetime.now().minute:
+
+                join_meeting(i)
+                break
+        break
