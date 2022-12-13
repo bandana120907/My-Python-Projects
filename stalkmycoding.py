@@ -1,7 +1,7 @@
 import webbrowser
 c=str(input('codechef: '))
 g=str(input('geeksforgeeks id: '))
-while ' ' in c or g:
+while ' ' in c or ' ' in g:
     print('enter valid usernames without spaces!')
     c = str(input('codechef: '))
     g = str(input('geeksforgeeks id: '))
