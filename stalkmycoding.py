@@ -1,6 +1,7 @@
 import webbrowser
+import sys 
 
-c=str(input("Enter a username: "))
+c=sys.argv[1]
 while ' ' in c:
     print('enter valid usernames without spaces!')
     c = str(input("Enter a username: "))
